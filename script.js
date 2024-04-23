@@ -66,23 +66,52 @@ function testSpeech() {
   }
 
   recognition.onspeechend = function() {
+    var speechResult = event.results[0][0].transcript.toLowerCase();
+    diagnosticPara.textContent = 'Speech received: ' + speechResult + '.';
+    if(speechResult === phrase) {
+      resultPara.textContent = 'I heard the correct phrase!';
+      resultPara.style.background = 'lime';
+    } else {
+      resultPara.textContent = 'That didn\'t sound right.';
+      resultPara.style.background = 'red';
+    }
     recognition.stop();
     testBtn.disabled = false;
     testBtn.textContent = 'Start new test';
+
   }
 
   recognition.onerror = function(event) {
     testBtn.disabled = false;
+    var speechResult = event.results[0][0].transcript.toLowerCase();
+    diagnosticPara.textContent = 'Speech received: ' + speechResult + '.';
+    if(speechResult === phrase) {
+      resultPara.textContent = 'I heard the correct phrase!';
+      resultPara.style.background = 'lime';
+    } else {
+      resultPara.textContent = 'That didn\'t sound right.';
+      resultPara.style.background = 'red';
+    }
     testBtn.textContent = 'Start new test';
     diagnosticPara.textContent = 'Error occurred in recognition: ' + event.error;
   }
   
   recognition.onaudiostart = function(event) {
       //Fired when the user agent has started to capture audio.
+      
       console.log('SpeechRecognition.onaudiostart');
   }
   
   recognition.onaudioend = function(event) {
+    var speechResult = event.results[0][0].transcript.toLowerCase();
+    diagnosticPara.textContent = 'Speech received: ' + speechResult + '.';
+    if(speechResult === phrase) {
+      resultPara.textContent = 'I heard the correct phrase!';
+      resultPara.style.background = 'lime';
+    } else {
+      resultPara.textContent = 'That didn\'t sound right.';
+      resultPara.style.background = 'red';
+    }
       //Fired when the user agent has finished capturing audio.
       console.log('SpeechRecognition.onaudioend');
   }
