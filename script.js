@@ -30,7 +30,6 @@ function testSpeech() {
 
   var phrase = phrases[randomPhrase()];
   // To ensure case consistency while checking with the returned output text
-  phrase = phrase.toLowerCase();
   phrasePara.textContent = phrase;
   resultPara.textContent = 'Right or wrong?';
   resultPara.style.background = 'rgba(0,0,0,0.2)';
