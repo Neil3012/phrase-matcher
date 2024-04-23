@@ -33,6 +33,9 @@ const requestMicrophonePermission = async () => {
       // Now you can use the microphone stream for audio processing
   } catch (error) {
       console.error('Error requesting microphone:', error);
+      testBtn.textContent = 'Error requesting microphone:', error;
+
+
   }
 };
 
