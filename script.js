@@ -34,8 +34,9 @@ function testSpeech() {
   phrasePara.textContent = phrase;
   resultPara.textContent = 'Right or wrong?';
   resultPara.style.background = 'rgba(0,0,0,0.2)';
-  diagnosticPara.textContent =  resultPara ;
 
+  var speechResult = results[0][0].transcript.toLowerCase();
+  diagnosticPara.textContent = 'Speech received: ' + speechResult + '.';
   var grammar = '#JSGF V1.0; grammar phrase; public <phrase> = ' + phrase + ';';
  
 }
