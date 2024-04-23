@@ -1,5 +1,5 @@
 var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-var SpeechGrammarList = window.SpeechGrammarList || window.webkitSpeechGrammarList;
+
 var SpeechRecognitionEvent = window.SpeechRecognitionEvent || window.webkitSpeechRecognitionEvent;
 
 var phrases = [
@@ -34,44 +34,10 @@ function testSpeech() {
   phrasePara.textContent = phrase;
   resultPara.textContent = 'Right or wrong?';
   resultPara.style.background = 'rgba(0,0,0,0.2)';
-  diagnosticPara.textContent = '...diagnostic messages';
+  diagnosticPara.textContent =  resultPara ;
 
   var grammar = '#JSGF V1.0; grammar phrase; public <phrase> = ' + phrase + ';';
-  var recognition = new SpeechRecognition();
-  var speechRecognitionList = new SpeechGrammarList();
-  speechRecognitionList.addFromString(grammar, 1);
-  recognition.grammars = speechRecognitionList;
-  recognition.lang = 'en-US';
-  recognition.interimResults = false;
-  recognition.maxAlternatives = 1;
-
-  recognition.start();
-
-  recognition.onresult = function(event) {
-    var speechResult = event.results[0][0].transcript.toLowerCase();
-    diagnosticPara.textContent = 'Speech received: ' + speechResult + '.';
-    if (speechResult === phrase) {
-      resultPara.textContent = 'I heard the correct phrase!';
-      resultPara.style.background = 'lime';
-    } else {
-      resultPara.textContent = 'That didn\'t sound right.';
-      resultPara.style.background = 'red';
-    }
-
-    console.log('Confidence: ' + event.results[0][0].confidence);
-  };
-
-  recognition.onspeechend = function() {
-    recognition.stop();
-    testBtn.disabled = false;
-    testBtn.textContent = 'Start new test';
-  };
-
-  recognition.onerror = function(event) {
-    testBtn.disabled = false;
-    testBtn.textContent = 'Start new test';
-    diagnosticPara.textContent = 'Error occurred in recognition: ' + event.error;
-  };
+ 
 }
 
 testBtn.addEventListener('click', testSpeech);
