@@ -19,6 +19,33 @@ var diagnosticPara = document.querySelector('.output');
 
 var testBtn = document.querySelector('button');
 
+// Check if the device is running iOS 17
+const isIOS17 = () => {
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  return /iPad|iPhone|iPod/.test(userAgent) && /OS 17_/.test(userAgent);
+};
+
+// Function to request microphone access
+const requestMicrophonePermission = async () => {
+  try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      console.log('Microphone access granted!', stream);
+      // Now you can use the microphone stream for audio processing
+  } catch (error) {
+      console.error('Error requesting microphone:', error);
+  }
+};
+
+// Check if the device is iOS 17 and request microphone permission
+if (isIOS17()) {
+  console.log('Requesting microphone due to audio issue in iOS 17.');
+  // Perform microphone permission request when needed (e.g., on user interaction)
+  document.addEventListener('click', () => {
+      requestMicrophonePermission();
+  });
+} else {
+  console.log('Device is not running iOS 17. No need to request microphone.');
+}
 function randomPhrase() {
   var number = Math.floor(Math.random() * phrases.length);
   return number;
@@ -120,5 +147,6 @@ function testSpeech() {
       console.log('SpeechRecognition.onstart');
   }
 }
+
 
 testBtn.addEventListener('click', testSpeech);
